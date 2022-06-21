@@ -1,9 +1,8 @@
 import React from 'react'
 import $ from 'jquery'
-import Login from './Login'
-import { BrowserRouter,Link,Routes } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-export default function Header({ handleLoginClick }) {
+export default function Navbar1() {
 
     $(document).ready(function() {
         $("#sidebarCollapse").on("click", function() {
@@ -26,11 +25,9 @@ export default function Header({ handleLoginClick }) {
         });
       });
 
-      const loginClick = () => {
-        handleLoginClick()
-      }
-      
+      $(".category-li").on("click",function() {})
   return (
+  <>
     <div>
         <div className="overlay"></div>
 
@@ -60,11 +57,14 @@ export default function Header({ handleLoginClick }) {
       <h4 className="font-weight-bold">Logo</h4>
     </a>
 
-    <ul className="navbar-nav ml-auto d-block d-md-none">
+    {/* <ul className="d-flex list-unstyled">
       <li className="nav-item">
-        <a className="btn btn-link" href="#"><i className="bx bxs-cart icon-single"></i> <span className="badge badge-danger">3</span></a>
+        <a className="btn btn-link m" href="#"><i className="bx bxs-cart bx-sm"></i></a>
       </li>
-    </ul>
+      <li className="nav-item">
+        <a className="btn btn-link" href="#"><i className="bx bx-heart bx-sm"></i></a>
+      </li>
+    </ul> */}
 
     <div className="collapse navbar-collapse">
       <form className="d-flex form-inline my-2 my-lg-0 mx-auto">
@@ -80,7 +80,10 @@ export default function Header({ handleLoginClick }) {
             <a className="btn btn-link" href="#"><i class='bx bx-heart bx-sm'></i><span className="badge badge-danger">3</span></a>
         </li>
         <li className="nav-item ml-md-3">
-          <button className="btn btn-primary" onClick={loginClick}><i className="bx bxs-user-circle mr-1"></i> Log In / Register</button>
+          <Link className="btn btn-primary" to="/signin">Register</Link>
+          <Link className="btn btn-primary mx-3" to="/login">Login</Link>
+
+
 
 
         </li>
@@ -107,16 +110,7 @@ export default function Header({ handleLoginClick }) {
         <li className="nav-item">
           <a className="nav-link" href="#">Publishers</a>
         </li>
-        <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Support
-                        </a>
-          <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a className="dropdown-item" href="#">Delivery Information</a>
-            <a className="dropdown-item" href="#">Privacy Policy</a>
-            <a className="dropdown-item" href="#">Terms and Conditions</a>
-          </div>
-        </li>
+        
         <li className="nav-item">
           <a className="nav-link" href="#">Contact</a>
         </li>
@@ -141,12 +135,17 @@ export default function Header({ handleLoginClick }) {
 <nav id="sidebar">
   <div className="sidebar-header">
     <div className="container">
-      <div className="row align-items-center">
-        <div className="col-10 pl-0">
-          <a className="btn btn-primary rounded-0" href="#"><i className="bx bxs-user-circle mr-1"></i> Log In</a>
+      <div className="row">
+        <div className="col-10  d-flex justify-content-start">
+          <Link className="btn btn-primary" to="/signin">Register</Link>
+          <Link className="btn btn-primary mx-3" to="/login">Login</Link>
+        <Link to="/" className='btn btn-link'><i className="bx bxs-cart bx-sm"></i></Link>
+        <Link to="/" className="btn btn-link"><i className="bx bx-heart bx-sm"></i></Link>
         </div>
 
-        <div className="col-2 text-left">
+
+
+        <div className="col-2">
           <button type="button" id="sidebarCollapseX" className="btn btn-link">
                             <i className="bx bx-x icon-single"></i>
                         </button>
@@ -168,7 +167,7 @@ export default function Header({ handleLoginClick }) {
     <li>
       <a href="#"><i className="bx bx-crown mr-3"></i> Publishers</a>
     </li>
-    <li>
+    {/* <li>
       <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle"><i className="bx bx-help-circle mr-3"></i>
                     Support</a>
       <ul className="collapse list-unstyled" id="pageSubmenu">
@@ -180,35 +179,37 @@ export default function Header({ handleLoginClick }) {
         </li>
         <li>
           <a href="#">Terms and Conditions</a>
-        </li>
-      </ul>
-    </li>
+        </li> */}
+      {/* </ul>
+    </li> */}
     <li>
       <a href="#"><i className="bx bx-phone mr-3"></i> Contact</a>
     </li>
   </ul>
 
+
   <h6 className="text-uppercase mb-1">Categories</h6>
   <ul className="list-unstyled components mb-3">
-    <li>
-      <a href="#">Category 1</a>
+    <li id='category-li'>
+      <Link to="/login">Category</Link>
     </li>
     <li>
-      <a href="#">Category 1</a>
+      <Link to="/">Category</Link>
     </li>
     <li>
-      <a href="#">Category 1</a>
+      <Link to="/">Category</Link>
     </li>
     <li>
-      <a href="#">Category 1</a>
+      <Link to="/">Category</Link>
     </li>
     <li>
-      <a href="#">Category 1</a>
+      <Link to="/">Category</Link>
     </li>
     <li>
-      <a href="#">Category 1</a>
+      <Link to="/">Category</Link>
     </li>
   </ul>
+
 
   <ul className="social-icons">
     <li><a href="#" target="_blank" title=""><i className="bx bxl-facebook-square"></i></a></li>
@@ -219,8 +220,6 @@ export default function Header({ handleLoginClick }) {
 
 </nav>
     </div>
+  </>
   )
-
 }
-
-  

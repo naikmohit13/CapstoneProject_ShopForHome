@@ -1,9 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Login({ isShowLogin }) {
     
   return (
-    <div className={`show ${!isShowLogin ? "active" : "inactive"}`}>
     <div className="login-form">
     <form method="post">
         <h2 className="text-center">Log in</h2>       
@@ -17,10 +17,9 @@ export default function Login({ isShowLogin }) {
             <button type="submit" className="btn btn-primary btn-block my-3">Log in</button>
         </div>
         <div className="clearfix">
-            <span>Don't have an account? </span><a href="#"> Sign Up here</a>
+            <span>Don't have an account? </span><Link to="/signin">Sign Up here</Link>
         </div>        
     </form>
-</div>
 </div>
   )
 }

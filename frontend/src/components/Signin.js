@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 export default function Signin() {
   return (
@@ -18,15 +19,15 @@ export default function Signin() {
 		<div class="form-group">
             <input type="password" class="form-control" name="password" placeholder="Password" required="required"/>
         </div>
-		<div class="form-group">
+		{/* <div class="form-group">
             <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required"/>
         </div>        
         <div class="form-group">
 			<label class="form-check-label"><input type="checkbox" required="required"/> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
-		</div>
+		</div> */}
 		<div class="form-group">
             <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
-            <div class="text-center mt-2">Already have an account? <a href="#">Log in here</a></div>
+            <div class="text-center mt-2">Already have an account? <Link to="/login">Sign Up here</Link></div>
         </div>
     </form>
 </div>
