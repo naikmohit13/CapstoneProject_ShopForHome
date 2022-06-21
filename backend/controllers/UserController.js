@@ -1,5 +1,5 @@
 
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/UserModel');
 // const User = require('../models/UserModel');
@@ -8,28 +8,31 @@ const register = (req,res,next) => {
 
     
     User.findOne({email: req.body.email})
-    .exec((error, user) => {
+    .then(user => {
         if(user) return res.status(400).json({
             message: 'User already registered'
-        });
+        })
+    })
+
     bcrypt.hash(req.body.password,10,function(err,hashedPass){
         if (err) {
-            res.json({
+            return res.json({
                 error: err
             })
         }
 
-        let user = new User({
-            firstname: req.body.firstName,
-            lastname: req.body.lastName,
+        let _user = new User({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             email: req.body.email,
             contactNumber: req.body.contactNumber,
             password: hashedPass,
-            username: Math.random().toString()
+            username: (req.body.firstName+req.body.lastName).toLowerCase()
         })
-        user.save()
+
+        _user.save()
         .then(user => {
-            res.status(201).json({
+            res.status(200).json({
                 message: "User Added Successfully"
             })
         })
@@ -38,14 +41,14 @@ const register = (req,res,next) => {
                 message: "Error occured"
             })
         })
-    })  
+
+    })
 }
-)
-}
+
 
 const login = (req,res,next) => {
 
-    var username = req.body.username
+    var username = req.body.email
     var password = req.body.password
 
     User.findOne({'email':username})
@@ -80,6 +83,14 @@ const login = (req,res,next) => {
 
 }
 
+const requireLogin = (req, res, next) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const user = jwt.verify(token, "secretKey123");
+    req.user = user;
+    
+    next();
+}
+
 module.exports = {
-    register,login
+    register,login,requireLogin
 }

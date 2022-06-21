@@ -16,12 +16,12 @@ const register_admin = (req,res,next) => {
         }
 
         let user = new User({
-            firstname: req.body.firstName,
-            lastname: req.body.lastName,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             email: req.body.email,
             contactNumber: req.body.contactNumber,
             password: hashedPass,
-            username: Math.random().toString(),
+            username: ("Admin_"+req.body.firstName+req.body.lastName).toLowerCase(),
             role: 'admin'
         })
         user.save()
@@ -44,7 +44,7 @@ const login_admin = (req,res,next) => {
     var email = req.body.email
     var password = req.body.password
 
-    Admin.findOne({'email':email})
+    User.findOne({'email':email})
     .then(user => {
         if(user){
             bcrypt.compare(password,user.password,function(err,result){
@@ -69,16 +69,20 @@ const login_admin = (req,res,next) => {
         }
         else{
         res.json({
-            message: "No user found!"
+            message: "No admin found!"
         })
     }
     })
 
 }
 
-// const logout = (req,res,next) => {
-
-// }
+const requireLogin = (req, res, next) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const user = jwt.verify(token, "adminSecretKey");
+    req.user = user;
+    next();
+    //jwt.decode()
+}
 module.exports = {
-    register_admin,login_admin
+    register_admin,login_admin,requireLogin
 }
