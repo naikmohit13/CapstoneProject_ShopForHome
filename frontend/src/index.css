@@ -339,7 +339,7 @@ ul.social-icons li {
 .signup-form .form-group .form-control {
 	height: 40px;
 	box-shadow: none;
-	color: #ffffff;
+	/* color: #ffffff; */
   border-style: none;
   border-bottom-style: solid;
   border-radius: 0px;

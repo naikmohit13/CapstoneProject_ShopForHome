@@ -61,7 +61,8 @@ const login = (req,res,next) => {
                     })
                 }
                 if(result){
-                    let token = jwt.sign({_id:user._id},'secretKey123',{expiresIn:'1h'})
+                    
+                    let token = jwt.sign({_id:user._id,role:user.role},'SecretKey',{expiresIn:'1h'})
                     const {_id, firstName, lastName, email, role, fullName } = user;
                     res.json({
                         message:"Login Successful!", token, user: {_id, firstName, lastName, email, role, fullName}
@@ -83,14 +84,7 @@ const login = (req,res,next) => {
 
 }
 
-const requireLogin = (req, res, next) => {
-    const token = req.headers.authorization.split(" ")[1];
-    const user = jwt.verify(token, "secretKey123");
-    req.user = user;
-    
-    next();
-}
 
 module.exports = {
-    register,login,requireLogin
+    register,login
 }

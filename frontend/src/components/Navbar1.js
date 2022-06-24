@@ -83,9 +83,6 @@ export default function Navbar1() {
           <Link className="btn btn-primary" to="/signin">Register</Link>
           <Link className="btn btn-primary mx-3" to="/login">Login</Link>
 
-
-
-
         </li>
       </ul>
     </div>

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const {login_admin, register_admin, requireLogin } = require('../controllers/AdminController')
+const {login_admin, register_admin } = require('../controllers/AdminController')
 // const Admin = require('../models/UserModel')
 
 router.post('/admin/register',register_admin)

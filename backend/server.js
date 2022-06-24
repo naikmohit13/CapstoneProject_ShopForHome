@@ -2,10 +2,14 @@ const express  = require ('express')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const path = require("path");
+const cors = require("cors");
 
-// const UserRoute = require('./routes/UserRoutes')
 const userRoutes = require('./routes/UserRoutes')
 const AdminRoutes = require('./routes/AdminRoutes')
+const CategoryRoutes = require('./routes/categories')
+const ProductRoutes = require('./routes/Product')
+const CartRoutes = require('./routes/Cart')
 
 mongoose.connect('mongodb://127.0.0.1:27017/shop_for_home',{useNewUrlParser:true,useUnifiedTopology:true})
 const db = mongoose.connection
@@ -37,7 +41,12 @@ app.get('/', (req,res,next) => {
         })
 })
 
+app.use(cors());
+app.use("/public", express.static(path.join(__dirname, "uploads")));
 app.use('/api',userRoutes)
 app.use('/api',AdminRoutes)
+app.use('/api',CategoryRoutes)
+app.use('/api',ProductRoutes)
+app.use('/api',CartRoutes)
 
 

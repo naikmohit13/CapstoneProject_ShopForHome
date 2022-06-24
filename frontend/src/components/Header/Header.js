@@ -16,9 +16,6 @@ export default function Header() {
         <Route path='home' element={<Home/>}/>
         <Route path='login' element={<Login/>}/>
         <Route path='signin' element={<Signin/>}/>
-        {/* <Route exact path='/women' element={<Card/>}/> */}
-        {/* <Route exact path='/men' element={<Men/>}/> */}
-
       </Routes> 
   </>
 

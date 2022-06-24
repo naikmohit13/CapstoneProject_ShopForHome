@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const User = require('../models/UserModel');
 
-
 const register_admin = (req,res,next) => {
 
     User.findOne( {email:req.body.email})
@@ -32,7 +31,7 @@ const register_admin = (req,res,next) => {
         })
         .catch(error => {
             res.json({
-                message: "Error occured"
+                message: "Error occured 1"
             })
         })
     })  
@@ -54,7 +53,7 @@ const login_admin = (req,res,next) => {
                     })
                 }
                 if(result && user.role === "admin"){
-                    let token = jwt.sign({_id:user._id},'adminSecretKey',{expiresIn:'1h'})
+                    let token = jwt.sign({_id:user._id,role:user.role},'adminSecretKey',{expiresIn:'1h'})
                     const {_id, firstName, lastName, email, role, fullName } = user;
                     res.json({
                         message:"Login Successful!", token, user:{_id, firstName, lastName, email, role, fullName}
@@ -76,13 +75,6 @@ const login_admin = (req,res,next) => {
 
 }
 
-const requireLogin = (req, res, next) => {
-    const token = req.headers.authorization.split(" ")[1];
-    const user = jwt.verify(token, "adminSecretKey");
-    req.user = user;
-    next();
-    //jwt.decode()
-}
 module.exports = {
-    register_admin,login_admin,requireLogin
+    register_admin,login_admin
 }
