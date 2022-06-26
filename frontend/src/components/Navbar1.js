@@ -74,10 +74,13 @@ export default function Navbar1() {
 
       <ul className="navbar-nav">
         <li className="nav-item">
-          <a className="btn btn-link" href="#"><i className="bx bxs-cart bx-sm icon-single"></i></a>
+          {/* <Link className="btn btn-link" to='/cart'><i className="bx bxs-cart bx-sm icon-single"></i></Link> */}
+          <pre></pre>
         </li>
         <li>
-            <a className="btn btn-link" href="#"><i class='bx bx-heart bx-sm'></i><span className="badge badge-danger">3</span></a>
+            {/* <Link className="btn btn-link" ><i class='bx bx-heart bx-sm'></i><span className="badge badge-danger">3</span></Link> */}
+          <Link className="btn btn-link mx-3" to='/cart'><i className="bx bxs-cart bx-sm icon-single"></i></Link>
+
         </li>
         <li className="nav-item ml-md-3">
           <Link className="btn btn-primary" to="/signin">Register</Link>
@@ -95,11 +98,12 @@ export default function Navbar1() {
   <div className="container">
     <div className="collapse navbar-collapse" id="navbar">
       <ul className="navbar-nav mx-auto">
-        <li className="nav-item active">
-          <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+        <li className="nav-item">
+          <Link className="nav-link" to="/">Home </Link> 
+          {/* //<span className="sr-only">(current)</span> */}
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Products</a>
+        <Link className="nav-link" to="/products"> Products </Link>
         </li>
         <li className="nav-item">
           <a className="nav-link" href="#">Schools</a>
@@ -150,7 +154,7 @@ export default function Navbar1() {
       </div>
     </div>
   </div>
-
+  
   <ul className="list-unstyled components links">
     <li className="active">
       <a href="#"><i className="bx bx-home mr-3"></i> Home</a>
@@ -191,10 +195,10 @@ export default function Navbar1() {
       <Link to="/login">Category</Link>
     </li>
     <li>
-      <Link to="/">Category</Link>
+      <Link to="/products">Products</Link>
     </li>
     <li>
-      <Link to="/">Category</Link>
+      <Link to="/categories">Category</Link>
     </li>
     <li>
       <Link to="/">Category</Link>

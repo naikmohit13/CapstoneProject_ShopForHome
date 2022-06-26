@@ -42,18 +42,18 @@ export default (state = initState, action) => {
                 // loading: true
             }
             break;
-        // case authConstants.LOGOUT_SUCCESS:
-        //     state = {
-        //         ...initState
-        //     }
-        //     break;
-        // case authConstants.LOGOUT_FAILURE:
-        //     state = {
-        //         ...state,
-        //         error: action.payload.error,
-        //         loading: false
-        //     }
-        //     break;
+        case authConstants.LOGOUT_SUCCESS:
+            state = {
+                ...initState
+            }
+            break;
+        case authConstants.LOGOUT_FAILURE:
+            state = {
+                ...state,
+                error: action.payload.error,
+                loading: false
+            }
+            break;
 
     }
 

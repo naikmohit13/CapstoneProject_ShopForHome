@@ -5,7 +5,7 @@ const {
   addToCart,
   getCartItems,
   removeCartItems,
-} = require("../controllers/Cart");
+} = require("../controllers/User/Cart");
 const { requireLogin, userMiddleware } = require("../common-middleware");
 const router = express.Router();
 
@@ -15,8 +15,9 @@ router.post(
   userMiddleware,
   addItemToCart
 );
+
 router.post('/user/cart/addToCartByLogin', requireLogin, userMiddleware, addToCart);
-router.post("/user/getCartItems", requireLogin, userMiddleware, getCartItems);
+router.get("/user/getCartItems", requireLogin, userMiddleware, getCartItems);
 //new update
 router.post(
   "/user/cart/removeItem",

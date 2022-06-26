@@ -1,8 +1,8 @@
-const Category = require("../models/Categories");
+const Category = require("../../models/Categories");
 const slugify = require("slugify");
 const shortid = require("shortid");
 
-const createCategories = (categories, parentId = null) => {
+function createCategories(categories, parentId = null) {
   const categoryList = [];
   let category;
   if (parentId == null) {
@@ -25,8 +25,7 @@ const createCategories = (categories, parentId = null) => {
   return categoryList;
 }
 
-const addCategory = (req, res) => {
-  
+exports.addCategory = (req, res) => {
   const categoryObj = {
     name: req.body.name,
     slug: `${slugify(req.body.name)}-${shortid.generate()}`,
@@ -50,7 +49,7 @@ const addCategory = (req, res) => {
   });
 };
 
-const getCategories = (req, res) => {
+exports.getCategories = (req, res) => {
   Category.find({}).exec((error, categories) => {
     if (error) return res.status(400).json({ error });
     if (categories) {
@@ -60,7 +59,7 @@ const getCategories = (req, res) => {
   });
 };
 
-const updateCategories = async (req, res) => {
+exports.updateCategories = async (req, res) => {
   const { _id, name, parentId, type } = req.body;
   const updatedCategories = [];
   if (name instanceof Array) {
@@ -96,7 +95,7 @@ const updateCategories = async (req, res) => {
   }
 };
 
-const deleteCategories = async (req, res) => {
+exports.deleteCategories = async (req, res) => {
   const { ids } = req.body.payload;
   const deletedCategories = [];
   for (let i = 0; i < ids.length; i++) {
@@ -113,7 +112,3 @@ const deleteCategories = async (req, res) => {
     res.status(400).json({ message: "Something went wrong" });
   }
 };
-
-module.exports = {
-    addCategory, deleteCategories, updateCategories, createCategories, getCategories
-}

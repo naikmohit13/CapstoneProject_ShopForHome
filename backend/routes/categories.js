@@ -9,7 +9,7 @@ const {
   getCategories,
   updateCategories,
   deleteCategories,
-} = require("../controllers/Categories");
+} = require("../controllers/User/Categories");
 
 const {
   requireLogin,

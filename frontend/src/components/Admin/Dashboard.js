@@ -31,7 +31,7 @@ export default function Dashboard() {
   </div>
 </nav>
 
-    <div className="row">
+    <div className="row" id="admin_row">
       <div className="col col-sm-4 col-md-4 col-lg-4 col-xl-2">
       <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" >
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">

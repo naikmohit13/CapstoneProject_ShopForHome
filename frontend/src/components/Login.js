@@ -1,10 +1,11 @@
 import React ,{ useState , useEffect }from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
-import {login} from '../actions'
-import { isUserLoggedIn } from '../actions/auth_action'
+import {login} from '../actions/auth_action'
+import { login_user } from '../actions/user_auth_action'
+// import { isUserLoggedIn } from '../actions/auth_action'
 
-export default function Login(props) {
+export default function Login({ path }) {
     
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
@@ -20,12 +21,19 @@ export default function Login(props) {
         const user = {
                 email,password
         }
-        dispatch(login(user))
+
+        if(path === "/login")
+            dispatch(login_user(user))
+        else{
+            dispatch(login(user))
+
+            if(auth.authenticate){
+                return <Navigate to="/admin/dashboard"/>
+            }
+        }
     }
 
-    if(auth.authenticate){
-        return <Navigate to="/admin/dashboard"/>
-    }
+    
 
   return (
     <div className="login-form">

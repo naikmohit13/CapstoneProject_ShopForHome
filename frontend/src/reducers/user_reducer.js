@@ -1,33 +1,27 @@
-import { adminConstants } from "../actions/constants"
+import { userConstants } from "../actions/constants"
 
 const initState = {
     error: null,
     message: '',
-    user: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: ''
-    },
     loading: false
 }
 
 export default (state = initState, action) => {
     switch(action.type){
-        case adminConstants.ADMIN_REGISTER_REQUEST:
+        case userConstants.USER_REGISTER_REQUEST:
             state = {
                 ...state,
                 loading: true
             }
             break;
-        case adminConstants.ADMIN_REGISTER_SUCCESS:
+        case userConstants.USER_REGISTER_SUCCESS:
             state = {
                 ...state,
                 loading: false,
                 message: action.payload.message
             }
             break;
-        case adminConstants.ADMIN_REGISTER_FAILURE:
+        case userConstants.USER_REGISTER_FAILURE:
             state = {
                 ...state,
                 loading: false,

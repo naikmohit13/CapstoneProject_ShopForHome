@@ -1,14 +1,13 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const { register_admin, login_admin, logout_admin } = require('../controllers/AdminController');
+const { validateRegisterRequest, isRequestValidated , validateLoginRequest } = require('../validators/validators');
+const { requireLogin } = require('../common-middleware/index');
+const router = express.Router();
 
-const {login_admin, register_admin } = require('../controllers/AdminController')
-// const Admin = require('../models/UserModel')
 
-router.post('/admin/register',register_admin)
-router.post('/admin/login',login_admin)
+router.post('/admin/register', validateRegisterRequest, isRequestValidated, register_admin);
+router.post('/admin/login', validateLoginRequest, isRequestValidated, login_admin);
+router.post('/admin/logout', logout_admin)
 
-// router.post('/admin/profile',requireLogin, (req,res) => {
-//     res.status(200).json({ user: 'profile'})
-// });
 
-module.exports = router
+module.exports = router;

@@ -11,9 +11,10 @@ const requireLogin = (req, res, next) => {
     if(req.headers.authorization)
     {
     const token = req.headers.authorization.split(" ")[1];
+    console.log(req.user)
     const user = jwt.verify(token, admin_key);
     req.user = user;
-    console.log(req.user)
+    
     next();
     //jwt.decode()
     }
@@ -23,7 +24,7 @@ const requireLogin = (req, res, next) => {
 }
 const userMiddleware = (req, res, next) => {
   if (req.user.role !== "user") {
-    return res.status(400).json({ message: "User access denied" });
+    return res.status(400).json({ message: "Access denied" });
   }
   next();
 };

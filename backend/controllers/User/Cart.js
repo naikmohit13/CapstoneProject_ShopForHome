@@ -1,56 +1,94 @@
-const Cart = require("../models/Cart");
+const Cart = require("../../models/Cart");
 
 const runUpdate = (condition, updateData) => {
   return new Promise((resolve, reject) => {
     //you update code here
-
     Cart.findOneAndUpdate(condition, updateData, { upsert: true })
-      .then((result) => resolve())
-      .catch((err) => reject(err));
+      .then((result) => resolve(result))
+      .catch((err) => reject());
   });
 }
 
 exports.addItemToCart = (req, res) => {
 
   Cart.findOne({ user: req.user._id }).exec((error, cart) => {
-    if (error) return res.status(400).json({ error });
+    if (error) return res.status(400).json({ message:"No user" });
     if (cart) {
       //if cart already exists then update cart by quantity
-      let promiseArray = [];
+      // let promiseArray = [];
+      const product = req.body.cartItems.product;
+      const item = cart.cartItems.find((c) => c.product == product);
+      
+      if(item){
+        Cart.findOneAndUpdate({ "user":req.user._id, "cartItems.product": product },{
+          "$set": {
+            "cartItems.$": { ...req.body.cartItems, 
+                    quantity: item.quantity + req.body.cartItems.quantity
 
-      req.body.cartItems.forEach((cartItem) => {
-        const product = cartItem.product;
-        const item = cart.cartItems.find((c) => c.product == product);
-        let condition, update;
-        if (item) {
-          condition = { user: req.user._id, "cartItems.product": product };
-          update = {
-            $set: {
-              "cartItems.$": cartItem,
-            },
-          };
-        } else {
-          condition = { user: req.user._id };
-          update = {
-            $push: {
-              cartItems: cartItem,
-            },
-          };
-        }
-        promiseArray.push(runUpdate(condition, update));
-    //     Cart.findOneAndUpdate(condition, update, { new: true })
-    //     .exec((error, _cart) => {
-    //         if(error) return res.status(400).json({ error });
-    //         if(_cart){
-    //             //return res.status(201).json({ cart: _cart });
-    //             updateCount++;
-    //         }
-    //     })
-       });
-      Promise.all(promiseArray)
-        .then((response) => res.status(201).json({ response }))
-        .catch((error) => res.status(400).json({ error }));
-    } else {
+            }
+          }
+        })
+        .exec((error, _cart) => {
+          if(error) return res.status(400).json({message:"HII"});
+          if(_cart){
+            return res.status(200).json({cart: _cart});
+          }
+        }) 
+      }
+      else{
+        Cart.findOneAndUpdate({ "user": req.user._id },{
+          "$push": {
+            "cartItems": req.body.cartItems
+          }
+        })
+        .exec((error, _cart) => {
+          if(error) return res.status(400).json({message:"HII"});
+          if(_cart){
+            return res.status(200).json({cart: _cart});
+          }
+        })
+      }
+      // req.body.cartItems.forEach((cartItem) => {
+      //   const product = cartItem.product;
+      //   const item = cart.cartItems.find((c) => c.product == product);
+      //   let condition, update;
+
+      //   if (item) {
+      //     condition = { user: req.user._id, "cartItems.product": product };
+      //     update = {
+      //       "$set": {
+      //         "cartItems.$": { ...cartItem, 
+      //                 quantity: item.quantity + cartItem.quantity
+
+      //         }
+      //       },
+      //     };
+      //   } else {
+      //     condition = { user: req.user._id };
+      //     update = {
+      //       "$push": {
+      //         cartItems: cartItem,
+      //       },
+      //     };
+      //   }
+      //    promiseArray.push(runUpdate(condition, update));
+      //   Cart.findOneAndUpdate(condition, update, { new: true })
+      //   // .exec((error, _cart) => {
+      //   //     if(error) return res.status(400).json({ error });
+      //   //     if(_cart){
+              
+      //   //         updateCount++;
+      //   //         return res.status(201).json({ cart: _cart });
+                
+      //   //     }
+      //   // })
+      //   });
+      // Promise.all(promiseArray)
+      //   .then((response) => res.status(201).json({ message: "Hii" }))
+      //   .catch((error) => res.status(400).json({ message:"Error in array" }));
+
+    } 
+    else {
       //if cart not exist then create a new cart
       const cart = new Cart({
         user: req.user._id,

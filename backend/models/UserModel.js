@@ -35,9 +35,10 @@ const userSchema = new Schema({
         enum: ['user', 'admin'],
         default:'user'
     },
-    contactNumber: { type: String },
+    contactNumber: { type: String, required: true },
     }, { timestamps: true });
 
 
 const User = mongoose.model('User',userSchema)
 module.exports = User
+

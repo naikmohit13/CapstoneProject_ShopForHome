@@ -10,6 +10,11 @@ const AdminRoutes = require('./routes/AdminRoutes')
 const CategoryRoutes = require('./routes/categories')
 const ProductRoutes = require('./routes/Product')
 const CartRoutes = require('./routes/Cart')
+const initialDataRoutes = require("./routes/initData");
+// const pageRoutes = require("./routes/admin/page");
+const addressRoutes = require("./routes/address");
+const orderRoutes = require("./routes/Order");
+const adminOrderRoute = require("./routes/Order_admin");
 
 mongoose.connect('mongodb://127.0.0.1:27017/shop_for_home',{useNewUrlParser:true,useUnifiedTopology:true})
 const db = mongoose.connection
@@ -48,5 +53,9 @@ app.use('/api',AdminRoutes)
 app.use('/api',CategoryRoutes)
 app.use('/api',ProductRoutes)
 app.use('/api',CartRoutes)
-
+app.use("/api", initialDataRoutes);
+// app.use("/api", pageRoutes);
+app.use("/api", addressRoutes);
+app.use("/api", orderRoutes);
+app.use("/api", adminOrderRoute);
 

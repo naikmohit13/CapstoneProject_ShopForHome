@@ -11,7 +11,8 @@ const {
     getProductDetailsById,
    deleteProductById,
    getProducts,
-} = require("../controllers/Product");
+} = require("../controllers/User/Product");
+
 const multer = require("multer");
 const router = express.Router();
 const shortid = require("shortid");
@@ -39,12 +40,14 @@ router.post(
 router.get("/products/:slug", getProductsBySlug);
 //router.get('/category/getcategory', getCategories);
 router.get("/product/:productId", getProductDetailsById);
+
 router.delete(
   "/product/deleteProductById",
   requireLogin,
   adminMiddleware,
   deleteProductById
 );
+
 router.post(
   "/product/getProducts",
   requireLogin,

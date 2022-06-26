@@ -1,7 +1,7 @@
-const Product = require("../models/product");
+const Product = require("../../models/Product");
 const shortid = require("shortid");
 const slugify = require("slugify");
-const Category = require("../models/Categories");
+const Category = require("../../models/Categories");
 
 // const Category = require("../models/Categories");
 

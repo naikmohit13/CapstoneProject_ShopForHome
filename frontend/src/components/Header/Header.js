@@ -4,7 +4,7 @@ import Login from '../Login'
 import Signin from '../Signin'
 import {Routes, Route } from 'react-router-dom'
 import Navbar1 from '../Navbar1'
-import Home from '../Homepage/Home'
+import User from '../User/User'
 
 export default function Header() {
       
@@ -13,9 +13,9 @@ export default function Header() {
   <>
       <Navbar1/>
     <Routes> 
-        <Route path='home' element={<Home/>}/>
-        <Route path='login' element={<Login/>}/>
-        <Route path='signin' element={<Signin/>}/>
+        {/* <Route path='home' element={<User/>}/> */}
+        <Route path='login' element={<Login path="/login"/>}/>
+        <Route path='signin' element={<Signin path="/signin"/>}/>
       </Routes> 
   </>
 

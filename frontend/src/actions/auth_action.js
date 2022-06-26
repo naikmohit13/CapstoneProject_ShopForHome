@@ -1,4 +1,4 @@
-import Axios from "../helpers/axios"
+import axios from "../helpers/axios"
 import { authConstants } from "./constants"
 
 export const login = (user) => {
@@ -8,7 +8,7 @@ export const login = (user) => {
     return async (dispatch) => {
 
         dispatch({ type: authConstants.LOGIN_REQUEST })
-        const res = await Axios.post('/admin/login', {
+        const res = await axios.post('/admin/login', {
             ...user
         })
         
@@ -32,12 +32,6 @@ export const login = (user) => {
                 })
             }
         }
-        // dispatch({
-        //     type: authConstants.LOGIN_REQUEST,
-        //     payload: {
-        //         ...user
-        //     }
-        // })
     }
 }
 
@@ -66,17 +60,17 @@ export const signout = () => {
         
         localStorage.clear();
         dispatch({ type: authConstants.LOGOUT_REQUEST });
-        // const res = await axios.post(`/admin/signout`);
+        const res = await axios.post(`/admin/logout`);
 
-        // if(res.status === 200){
-        //     localStorage.clear();
-        //     dispatch({ type: authConstants.LOGOUT_SUCCESS });
-        // }else{
-        //     dispatch({
-        //         type: authConstants.LOGOUT_FAILURE,
-        //         payload: { error: res.data.error }
-        //     });
-        // }
+        if(res.status === 200){
+            localStorage.clear();
+            dispatch({ type: authConstants.LOGOUT_SUCCESS });
+        }else{
+            dispatch({
+                type: authConstants.LOGOUT_FAILURE,
+                payload: { error: res.data.error }
+            });
+        }
 
         
     }

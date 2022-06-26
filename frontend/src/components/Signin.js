@@ -3,15 +3,19 @@ import {Link} from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 import { useSelector , useDispatch } from 'react-redux'
 import { signup } from '../actions/admin_action'
-export default function Signin() {
+import { signup_user } from '../actions/user_auth_action'
+
+export default function Signin({ path }) {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+
   const [error, setError] = useState("");
   const auth = useSelector((state) => state.auth);
-  const user = useSelector((state) => state.user);
+  const _user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -31,13 +35,19 @@ export default function Signin() {
       lastName,
       email,
       password,
+      contactNumber
     };
 
-    dispatch(signup(user));
+    if(path === '/signin')
+      dispatch(signup_user(user));
+      
+    else{
+      dispatch(signup(user));
+        return <Navigate to="/admin/dashboard"/>
+
   }
 
-  if(auth.authenticate){
-    return <Navigate to="/admin/dashboard"/>
+ 
 }
 
   return (
@@ -53,6 +63,9 @@ export default function Signin() {
         </div>
         <div class="form-group">
         	<input type="email" class="form-control" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required="required"/>
+        </div>
+        <div class="form-group">
+        	<input type="text" class="form-control" name="contact" value={contactNumber} onChange={(e) => setContactNumber(e.target.value)} placeholder="Phone" required="required"/>
         </div>
 		<div class="form-group">
             <input type="password" class="form-control" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required="required"/>
